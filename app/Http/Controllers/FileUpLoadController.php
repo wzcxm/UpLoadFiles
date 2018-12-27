@@ -45,7 +45,7 @@ class FileUpLoadController extends Controller
                         $dir = $uid.'/'.date('Y-m-d').'/';
                         $newName = md5($clientName.rand(0,999)).'.'.$ext;
                         $file -> move('files/'.$dir,$newName);
-                        $returnPath[] = env('FILE_HTTP_URL').$dir.$newName;
+                        $returnPath[] = ['filename'=>$clientName,'path'=>env('FILE_HTTP_URL').$dir.$newName];
                     }
                 }
             }
@@ -78,7 +78,7 @@ class FileUpLoadController extends Controller
             //验证用户是uid或key是否错误
             if(empty($user)){
                 $retJson->code = 400;
-                $retJson->message = 'uid或key是否错误';
+                $retJson->message = 'uid或key错误';
                 return $retJson->toJson();
             }
             $url_arr = explode('|',$urls);
