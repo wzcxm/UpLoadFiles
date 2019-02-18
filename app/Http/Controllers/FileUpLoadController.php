@@ -23,7 +23,10 @@ class FileUpLoadController extends Controller
         try{
             $uid = $request->input('uid','');
             $key = $request->input('key','');
-            $user =  DB::table('pro_mall_users')->where([['uid',$uid],['file_key',$key]])->count();
+            $user =  DB::table('pro_mall_users')
+                ->where('uid',$uid)
+                ->where('file_key',$key)
+                ->first();
             //验证用户是uid或key是否错误
             if(empty($user)){
                 $retJson->code = 400;
